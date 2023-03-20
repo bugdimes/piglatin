@@ -7,11 +7,7 @@ class TestPiglatin < Minitest::Test
     refute_nil ::Piglatin::VERSION
   end
 
-  def test_pig_latin_word
-    assert 'pig'.pig_latin_convert == 'igpay'
-  end
-
-  mapper = {
+  {
     'pig': 'igpay',
     'latin': 'atinlay',
     'banana': 'ananabay',
@@ -61,11 +57,9 @@ class TestPiglatin < Minitest::Test
     "she's great!": "e'sshay eatgray!",
     'HELLO': 'ELLOHAY',
     'Hello There': 'Ellohay Erethay'
-  }
-
-  mapper.keys.each do |word|
-    define_method "test_pig_latin_for_#{word.to_s}" do
-      assert word.to_s.pig_latin_convert == mapper[word], "failed for: #{word.to_s}, got #{word.to_s.pig_latin_convert} instead of #{mapper[word]}"
+  }.each_pair do |input, expected_output|
+    define_method "test_pig_latin_for_#{input.to_s}" do
+      assert input.to_s.pig_latin_convert == expected_output, "failed for: #{input.to_s}, got #{input.to_s.pig_latin_convert} instead of #{expected_output}"
     end
   end
 end
